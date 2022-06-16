@@ -4,13 +4,11 @@ import fs from "node:fs";
 
 const proxy = httpProxy.createProxyServer({
   target: {
-    protocol: 'https:',
+    protocol: 'https:', //protocol must be https, wss will make socket hang up
     host: '127.0.0.1',
     port: '8443',
-    cert: fs.readFileSync('ssl/cert.pem', 'utf8'),
-    // pfx: fs.readFileSync('ssl/client-identity.p12'),
   },
-  ws: true,
+  ws: true, //this option enables websocket connection
   secure: false,
   proxyTimeout: 5000
 });
@@ -20,24 +18,10 @@ const proxyServer = http.createServer(function (req, res) {
 });
 
 proxyServer.on('upgrade', function (req, socket, head) {
-  console.log('upgrade')
+  console.log('upgrade to ws')
   proxy.ws(req, socket, head);
 });
 
 proxyServer.listen(6001, () => {
-    console.log("ReversedProxy is running at port 6001")
+    console.log("ReversedProxy is running at http://localhost:6001")
 });
-
-// httpProxy.createProxyServer({
-//   target: {
-//     protocol: 'https:',
-//     host: 'localhost',
-//     port: '8443',
-//     // pfx: fs.readFileSync('ssl/client-identity.p12')
-//   },
-  
-//   agent  : https.globalAgent,
-//   headers: {
-//     host: 'localhost',
-//   },
-// }).listen(6001);

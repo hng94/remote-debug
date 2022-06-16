@@ -26,5 +26,5 @@ httpServer.on('upgrade', function (req, socket, head) {
 });
 
 httpServer.listen(8443, () => {
-    console.log("Router is running at port 8443")
+    console.log("Router is running at https://localhost:8443")
 });
