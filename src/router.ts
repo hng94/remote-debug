@@ -1,7 +1,6 @@
 import httpProxy from "http-proxy";
 import https from "https";
 import fs from "node:fs";
-import { WebSocketServer } from 'ws';
 
 const proxy = httpProxy.createProxyServer({
   target: {

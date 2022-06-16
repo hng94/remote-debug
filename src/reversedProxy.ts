@@ -1,6 +1,5 @@
 import httpProxy from "http-proxy";
 import http from "http";
-import fs from "node:fs";
 
 const proxy = httpProxy.createProxyServer({
   target: {
